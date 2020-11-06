@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var engine = require('ejs-locals')
 
 // Import modules for our routes directory
 var indexRouter = require('./routes/index');
@@ -10,6 +11,9 @@ var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');  //Import routes for "catalog" area of site
 
 var app = express();
+
+// use ejs-locals for all ejs templates:
+app.engine('ejs', engine);
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
