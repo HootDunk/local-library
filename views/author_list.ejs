@@ -1,0 +1,16 @@
+<% layout('layout') -%>
+<% stylesheet('../stylesheets/style.css') -%>
+
+<h1 class="index-h1"><%= title %> </h1>
+
+<ul>
+    <% author_list.forEach((author) => { %>
+        <li> 
+            <a href="<% author.url %>"><%- author.name %> </a>
+            (<%- author.lifespan %>)
+        </li>
+    <% }) %>
+    <% if(author_list.length === 0) { %>
+        <li>There are no authors.</li>
+    <% } %>  
+</ul>

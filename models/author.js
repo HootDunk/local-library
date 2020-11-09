@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const { DateTime } = require('luxon');
 
 var Schema = mongoose.Schema;
 
@@ -7,7 +8,7 @@ var AuthorSchema = new Schema(
     first_name: {type: String, required: true, maxlength: 100},
     family_name: {type: String, required: true, maxlength: 100},
     date_of_birth: {type: Date},
-    date_of_death: {type: Date},
+    date_of_death: {type: Date}
   }
 );
 
@@ -22,10 +23,20 @@ AuthorSchema
 });
 
 // Virtual for author's lifespan
-AuthorSchema
-.virtual('lifespan')
-.get(function () {
-  return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
+AuthorSchema.virtual('lifespan').get(function() {
+  var lifetime_string = '';
+  if (this.date_of_birth) {
+    console.log(this.date_of_birth)
+    lifetime_string = DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED);
+    //something is up with the date formatting :/
+    // consult the luxon documentation and checkout https://stackoverflow.com/questions/2488313/javascripts-getdate-returns-wrong-date
+    console.log(lifetime_string)
+  }
+  lifetime_string += ' - ';
+  if (this.date_of_death) {
+    lifetime_string += DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED)
+  }
+  return lifetime_string;
 });
 
 // Virtual for author's URL
