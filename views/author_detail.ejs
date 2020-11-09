@@ -1,0 +1,20 @@
+<% layout('layout') -%>
+<% stylesheet('../../stylesheets/style.css') -%>
+
+<h1 class="index-h1">Author: <%= author.name %> </h1>
+<p><%- author.lifespan %> </p>
+
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+    <dl>
+        <% author_books.forEach((book) => { %>
+            <dd> 
+                <a href="<%- book.url %>"><%- book.title %> </a>
+                <dd><%- book.summary %></dd>
+            </dd>
+        <% }) %>
+        <% if(author_books.length === 0) { %>
+            <dd>There are no books by this author.</dd>
+        <% } %>  
+    </dl>
+</div>
