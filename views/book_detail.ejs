@@ -1,0 +1,39 @@
+<% layout('layout') -%>
+<% stylesheet('../../stylesheets/style.css') -%>
+
+<h1 class="index-h1"><%= title %> </h1>
+
+<p><b>Author:</b> <a href="<%- book_info.author.url %> "><%- book_info.author.name %> </a></p>
+<p><b>Summary:</b> <%- book_info.summary %></p>
+<p><b>ISBN:</b> <%- book_info.isbn %> </p>
+<p>
+    <b>Genre:</b> 
+    <% book_info.genre.forEach((genre) => { %>
+        <a href="<%- genre.url %>"><%- genre.name %></a>, 
+    <% }) %> 
+</p>
+
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Copies</h4>
+    
+    <% book_instances.forEach((instance) => { %>
+        <hr>
+        <% if (instance.status == "Available") { %>
+            <p class="text-success"><b><%- instance.status %></b></p>
+            <p><b>Imprint: </b><%- instance.imprint %></p>
+        <% } else if (instance.status == "Maintenance") { %>
+            <p class="text-danger"><b><%- instance.status %></b></p>
+            <p><b>Imprint: </b><%- instance.imprint %></p>
+            <p><b>Due Back: </b><%- instance.due_back %></p>
+        <% } else { %>
+            <p><b>Imprint: </b><%- instance.imprint %></p>
+            <p class="text-warning"><b><%- instance.status %></b></p>
+            <p><b>Due Back: </b><%- instance.due_back %></p>
+        <% } %>
+        
+        <p><b>Id: </b><a href="<%- instance.url %>"><%- instance._id %> </a></p>
+         
+        
+    <% }) %> 
+</div>
+

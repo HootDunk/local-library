@@ -15,4 +15,6 @@
     <span class="text-warning"><%- bookinstance.status %> </span>
 <% } %> 
 </p>
-<p><b>Due Back:</b> <%- bookinstance.due_back %> </p>
+<% if (bookinstance.status != 'Available') { %>
+    <p><b>Due Back:</b> <%- bookinstance.due_back %></p>
+<% } %> 

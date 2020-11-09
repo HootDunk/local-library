@@ -11,6 +11,12 @@
             <dd><%- book.summary %> </dt>
         </dl>
 
-    <% }) %> 
+    <% }) %>
+    <% if(genre_books.length === 0) { %>
+        <dl>
+            <li>We currently don't have books of this genre.</li>
+        </dl>
+    <% } %>  
+
 
 </div>
